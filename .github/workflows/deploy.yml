@@ -2,9 +2,10 @@ name: Context testing
 on: push
 
 env:
-  BRANCH_A: ${{ github.ref == 'refs/heads/a' || github.ref == 'refs/heads/b' }}
+  BRANCH_A: ${{ github.ref == 'refs/heads/a' }}
   BRANCH_B: ${{ github.ref == 'refs/heads/b' }}
   BRANCH_C: ${{ github.ref == 'refs/heads/c' }}
+  A_OR_B: ${{ env.BRANCH_A || env.BRANCH_B }}
 
 
 jobs:
@@ -12,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Dump environment
-        run: echo $BRANCH_A $BRANCH_B $BRANCH_C
+        run: echo $BRANCH_A $BRANCH_B $BRANCH_C $A_OR_B
       - name: A Only Action
         run: echo 'We did it'
         if: env.BRANCH_A == 'true'

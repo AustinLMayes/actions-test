@@ -5,13 +5,13 @@ env:
   BRANCH_A: ${{ github.ref == 'refs/heads/a' }}
   BRANCH_B: ${{ github.ref == 'refs/heads/b' }}
   BRANCH_C: ${{ github.ref == 'refs/heads/c' }}
-  A_OR_B: ${{ env.BRANCH_A || env.BRANCH_B }}
-
 
 jobs:
   dump_contexts_to_log:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup environment
+        run: echo "A_OR_B=${$BRANCH_A == 1 || $BRANCH_B == 1}" >> $GITHUB_ENV
       - name: Dump environment
         run: echo $BRANCH_A $BRANCH_B $BRANCH_C $A_OR_B
       - name: A Only Action

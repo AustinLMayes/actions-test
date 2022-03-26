@@ -1,0 +1,26 @@
+name: Context testing
+on: push
+
+env:
+  BRANCH_A: ${{ github.ref == 'refs/heads/a' }}
+  BRANCH_B: ${{ github.ref == 'refs/heads/b' }}
+  BRANCH_C: ${{ github.ref == 'refs/heads/c' }}
+
+
+jobs:
+  dump_contexts_to_log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump environment
+        run: echo $BRANCH_A $BRANCH_B $BRANCH_C
+      - name: A Only Action
+        run: echo 'We did it'
+        if: BRANCH_A == 'true'
+      - name: B Only Action
+        run: echo 'We did it'
+        if: BRANCH_B == 'true'
+      - name: C Only Action
+        run: echo 'We did it'
+        if: BRANCH_C == 'true'
+      - name: Everywhere action
+        run: echo 'We did it'

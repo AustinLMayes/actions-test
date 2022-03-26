@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup environment
-        run: echo "A_OR_B=$(($BRANCH_A == true || $BRANCH_B == true))" >> $GITHUB_ENV
+        run: echo "A_OR_B=$(($BRANCH_A == true || $BRANCH_B == true ? true : false))" >> $GITHUB_ENV
       - name: Dump environment
-        run: echo $BRANCH_A $BRANCH_B $BRANCH_C
+        run: echo $BRANCH_A $BRANCH_B $BRANCH_C $A_OR_B
       - name: A Only Action
         run: echo 'We did it'
         if: env.BRANCH_A == 'true'
@@ -28,4 +28,4 @@ jobs:
         if: env.BRANCH_C == 'false'
       - name: A or B action
         run: echo 'We did it'
-        if: env.A_OR_B == 'true'
+        if: env.A_OR_B == '1'

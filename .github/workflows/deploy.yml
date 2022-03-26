@@ -15,12 +15,12 @@ jobs:
         run: echo $BRANCH_A $BRANCH_B $BRANCH_C
       - name: A Only Action
         run: echo 'We did it'
-        if: $BRANCH_A == 'true'
+        if: env.BRANCH_A == 'true'
       - name: B Only Action
         run: echo 'We did it'
-        if: $BRANCH_B == 'true'
+        if: env.BRANCH_B == 'true'
       - name: C Only Action
         run: echo 'We did it'
-        if: $BRANCH_C == 'true'
+        if: env.BRANCH_C == 'true'
       - name: Everywhere action
         run: echo 'We did it'
